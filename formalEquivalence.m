@@ -18,6 +18,7 @@ arguments
    model1Name  {mustBeA(model1Name,["string","char"])}
    model2Name {mustBeA(model2Name,["string","char"])}
 end
+warning('off','all') % disable warnings
 bdclose all
 load_system(model1Name)
 load_system(model2Name)
@@ -31,11 +32,25 @@ updateHMdl(char(model1HarnessName),char(model2Name))
 mergedHarnessName = model1HarnessName + "_mergedH";
 opts = sldvoptions;
 opts.Mode = 'PropertyProving';
+opts.ProvingStrategy = 'FindViolation';
+opts.MaxViolationSteps = 99;
+disp("Initial analysis sets proving strategy to 'FindViolation'")
 [status,filenames] = sldvrun(mergedHarnessName,opts,true);
 if status
     load(filenames.DataFile);
-    result = ~strcmp(sldvData.Objectives.status,'Falsified');
+    result1 = ~strcmp(sldvData.Objectives.status,'Falsified');
+    if result1 % try with ProvingStrategy set to 'Prove'
+        disp("No violation detected.")
+        disp("Trying again with proving strategy set to 'Prove'")
+        opts.ProvingStrategy = 'Prove';
+        [status,filenames] = sldvrun(mergedHarnessName,opts,true);
+        if status
+            load(filenames.DataFile);
+            result = ~strcmp(sldvData.Objectives.status,'Falsified');
+        end
+    end
 else
     error("Analysis error.")
 end
+warning('on','all') % re-enable warnings
 end
