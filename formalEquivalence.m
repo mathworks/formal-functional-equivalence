@@ -35,15 +35,15 @@ opts.Mode = 'PropertyProving';
 opts.ProvingStrategy = 'FindViolation';
 opts.MaxViolationSteps = 99;
 disp("Initial analysis sets proving strategy to 'FindViolation'")
-[status,filenames] = sldvrun(mergedHarnessName,opts,true);
+[status,filenames] = sldvrun(mergedHarnessName,opts);
 if status
     load(filenames.DataFile);
-    result1 = ~strcmp(sldvData.Objectives.status,'Falsified');
-    if result1 % try with ProvingStrategy set to 'Prove'
+    result = ~strcmp(sldvData.Objectives.status,'Falsified');
+    if result % try with ProvingStrategy set to 'Prove'
         disp("No violation detected.")
         disp("Trying again with proving strategy set to 'Prove'")
         opts.ProvingStrategy = 'Prove';
-        [status,filenames] = sldvrun(mergedHarnessName,opts,true);
+        [status,filenames] = sldvrun(mergedHarnessName,opts);
         if status
             load(filenames.DataFile);
             result = ~strcmp(sldvData.Objectives.status,'Falsified');
