@@ -1,7 +1,6 @@
 classdef formalEquivTests < matlab.unittest.TestCase
-    
-    methods(TestClassSetup)
-        % Shared setup for the entire test class
+    properties
+        Folder
     end
     
     methods(TestMethodSetup)
@@ -9,25 +8,18 @@ classdef formalEquivTests < matlab.unittest.TestCase
         function setupTest(testCase)
         bdclose('all'); % close all Simulink models
         clc
+        testCase.Folder = testCase.createTemporaryFolder();
+        copyfile("version*",testCase.Folder)
+        cd(testCase.Folder)
         end
     end
 
     methods(TestMethodTeardown)
         % Tear down for each test
         function teardownTest(testCase)
-            if exist('sldv_covoutput','dir')
-                rmdir('sldv_covoutput','s')
-            end
-            if exist('rtwgen_tlc','dir') % if this exists, then the rest should
-                rmdir('rtwgen_tlc') % should be empty
-                rmdir('sldv_output','s')
-                rmdir('slprj','s')
-                bdclose('all'); % close all Simulink models
-                delete('version1_harness.slx')
-                delete('version1_harness_mergedH.slx')
-                delete('version1_harness_mergedH.slxc')
-                delete('version1_harnessInfo.xml')
-            end
+            bdclose('all')
+            proj = matlab.project.rootProject;
+            cd(proj.RootFolder)
         end
     end
     
