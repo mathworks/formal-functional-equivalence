@@ -22,6 +22,16 @@ warning('off','all') % disable warnings
 bdclose all
 load_system(model1Name)
 load_system(model2Name)
+%% Check for model compatibility with Simulink Design Verifier
+model1_compatible = sldvcompat(model1Name);
+if ~model1_compatible
+    error(string(model1Name) + " is not compatible with Simulink Design Verifier")
+end
+model2_compatible = sldvcompat(model2Name);
+if ~model2_compatible
+   error(string(model2Name) + " is not compatible with Simulink Design Verifier")
+end
+%% Run formal functional equivalence
 model1HarnessName = model1Name + "_harness";
 harnessExists = ~isempty(sltest.harness.find(model1Name,'Name',model1HarnessName));
 if harnessExists
