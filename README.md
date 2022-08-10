@@ -8,8 +8,8 @@ Consider using formal functional equivalence when refactoring a model to improve
 
 ## Get Started
 To Run:
-1. Open [Formal_functional_equivalence.prj](https://insidelabs-git.mathworks.com/patcanny/formal-functional-equivalence/-/blob/main/Formal_functional_equivalence.prj) in MATLAB&reg;. 
-2. Run [funcEquivExample.m](https://insidelabs-git.mathworks.com/patcanny/formal-functional-equivalence/-/blob/main/funcEquivExample.m) to see an example
+1. Open [Formal_functional_equivalence.prj](https://github.com/mathworks/formal-functional-equivalence/blob/master/Formal_functional_equivalence.prj) in MATLAB&reg;. 
+2. Run [funcEquivExample.m](https://github.com/mathworks/formal-functional-equivalence/blob/master/funcEquivExample.m) to see an example
 
 ## MathWorks Products
 Requires MATLAB&reg; release R2022a or newer
@@ -20,7 +20,7 @@ Requires MATLAB&reg; release R2022a or newer
 * [Simulink Design Verifier](https://www.mathworks.com/products/simulink-design-verifier.html)
 
 ## License
-The license for  is available in the [license.txt](https://insidelabs-git.mathworks.com/patcanny/formal-functional-equivalence/-/blob/main/license.txt) file in this repository.
+The license for  is available in the [license.txt](https://github.com/mathworks/formal-functional-equivalence/blob/master/license.txt) file in this repository.
 
 
 Copyright 2022 The MathWorks, Inc.
