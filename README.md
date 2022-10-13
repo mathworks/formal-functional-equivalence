@@ -16,6 +16,7 @@ Requires MATLAB&reg; release R2022a or newer
 * [MATLAB&reg;](https://www.mathworks.com/products/matlab.html)
 * [Simulink&reg;](https://www.mathworks.com/products/simulink.html)
 * [Simulink Check&trade;](https://www.mathworks.com/products/simulink-check.html)
+* [Simulink Test&trade;](https://www.mathworks.com/products/simulink-test.html)
 * [Simulink Coverage&trade;](https://www.mathworks.com/products/simulink-coverage.html)
 * [Simulink Design Verifier](https://www.mathworks.com/products/simulink-design-verifier.html)
 
