@@ -1,4 +1,4 @@
-function result = formalEquivalence(model1Name,model2Name)
+function isFuncEquiv = formalEquivalence(model1Name,model2Name)
 
 %********************************************************************
 %FILENAME:                  formalEquivalence.m
@@ -9,7 +9,7 @@ function result = formalEquivalence(model1Name,model2Name)
 %INPUT:                     model1Name: Name of first model
 %                           model2name: Name of second model
 %
-%OUTPUT:                    result: Logical, true if models are formally
+%OUTPUT:                    isFuncEquiv: Logical, true if models are formally
 %functionally equivalent. Will return error if Simulink Design Verifier
 %analysis encounters an error.
 
@@ -44,23 +44,28 @@ opts = sldvoptions;
 opts.Mode = 'PropertyProving';
 opts.ProvingStrategy = 'FindViolation';
 opts.MaxViolationSteps = 99;
-disp("Initial analysis sets proving strategy to 'FindViolation'")
 [status,filenames] = sldvrun(mergedHarnessName,opts);
 if status
     load(filenames.DataFile);
-    result = ~strcmp(sldvData.Objectives.status,'Falsified');
-    if result % try with ProvingStrategy set to 'Prove'
-        disp("No violation detected.")
-        disp("Trying again with proving strategy set to 'Prove'")
+    isFuncEquiv = ~strcmp(sldvData.Objectives.status,'Falsified');
+    if isFuncEquiv % try with ProvingStrategy set to 'Prove' as additional check
         opts.ProvingStrategy = 'Prove';
         [status,filenames] = sldvrun(mergedHarnessName,opts);
         if status
             load(filenames.DataFile);
-            result = ~strcmp(sldvData.Objectives.status,'Falsified');
+            isFuncEquiv = ~strcmp(sldvData.Objectives.status,'Falsified');
+        else
+            error("Analysis error.")
         end
     end
 else
     error("Analysis error.")
 end
+if ~isFuncEquiv % Load results for debugging
+    sldvloadresults(mergedHarnessName,filenames.DataFile);
+    sldvhighlight
+    sldvreport(filenames.DataFile)
+end
+bdclose(mergedHarnessName)
 warning('on','all') % re-enable warnings
 end

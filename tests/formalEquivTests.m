@@ -1,6 +1,7 @@
 classdef formalEquivTests < matlab.unittest.TestCase
     properties
         Folder
+        Project
     end
     
     methods(TestMethodSetup)
@@ -18,10 +19,11 @@ classdef formalEquivTests < matlab.unittest.TestCase
         % Tear down for each test
         function teardownTest(testCase)
             bdclose('all')
-            proj = matlab.project.rootProject;
-            cd(proj.RootFolder)
+            testCase.Project = matlab.project.rootProject;
+            cd(testCase.Project.RootFolder)
         end
     end
+    
     
     methods(Test)
         % Test methods
@@ -29,6 +31,11 @@ classdef formalEquivTests < matlab.unittest.TestCase
         % Verify that function accepts valid model names
         function verifyModelName(testCase)
             verifyError(testCase,@() formalEquivalence(modelName1,modelName2),'MATLAB:UndefinedFunction')
+        end
+
+        % Verify that function runs without warnings
+        function verifyNoWarns(testCase)
+            verifyWarningFree(testCase,@() formalEquivalence("version1","version3"))
         end
 
         % Verify two equivalent models
@@ -41,12 +48,9 @@ classdef formalEquivTests < matlab.unittest.TestCase
         function verifyNotEquivalent(testCase)
             isFuncEqual = formalEquivalence("version1","version2");
             testCase.verifyFalse(isFuncEqual)
+            com.mathworks.mlservices.MatlabDesktopServices.getDesktop.closeGroup('Web Browser') %#ok<JAPIMATHWORKS> % close MATLAB web browser
         end
 
-        % Verify that function runs without warnings
-        function verifyNoWarns(testCase)
-            verifyWarningFree(testCase,@() formalEquivalence("version1","version3"))
-        end
     end
     
 end
