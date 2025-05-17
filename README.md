@@ -23,4 +23,4 @@ Requires MATLAB&reg; release R2022a or newer
 The license for  is available in the [license.txt](https://github.com/mathworks/formal-functional-equivalence/blob/master/license.txt) file in this repository.
 
 
-Copyright 2022 The MathWorks, Inc.
+Copyright 2022-2025 The MathWorks, Inc.
