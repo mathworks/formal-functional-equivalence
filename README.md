@@ -1,6 +1,6 @@
 # Formal Functional Equivalence
 
-[Functional equivalence testing](https://www.mathworks.com/help/sltest/ug/test-two-simulations-for-equivalence.html) is a workflow which involves simulating two models, or a model and its generated code, and ensuring their outputs are equivalent. This is a common workflow in standards such as ISO26262, however this technique does not formally prove functional equivalence in all cases.
+[Functional equivalence testing](https://www.mathworks.com/help/sltest/ug/back-to-back-equivalence-testing.html) is a workflow which involves simulating two models, or a model and its generated code, and ensuring their outputs are equivalent. This is a common workflow in standards such as ISO26262, however this technique does not formally prove functional equivalence in all cases.
 
 This project provides a set of utilities for performing "formal functional equivalence," which is a static analysis-based technique to prove that two Simulink&reg; models are functionally equivalent. These utilities use Property Proving in Simulink Design Verifier&trade;. If the two models are not formally functionally equivalent, Simulink Design Verifier will generate a counterexample for debugging.
 
